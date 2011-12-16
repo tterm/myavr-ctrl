@@ -34,6 +34,7 @@ private:
 	QComboBox * charsize_box;
 	QComboBox * parity_box;
 	QComboBox * flowctrl_box;
+	QComboBox * mode_box_;
 };
 
 }
