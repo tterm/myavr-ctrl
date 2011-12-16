@@ -15,7 +15,7 @@ AC_DEFUN([QT_CHECKS],
 
 	AS_IF([test "x$qtgui" = xtrue],
 		[AC_ARG_WITH(qt,
-        	[  --with-qt[=DIR]        use qt4 in DIR (default=/[opt|tools]/qt-4.6.0-1dfs)],
+        	[  --with-qt[=DIR]        use qt4 in DIR (default=/[opt|tools]/qt-4.6.0-1)],
         		[
             		if test -d "$withval"; then
                 		QT_ROOT="$withval"
@@ -27,10 +27,10 @@ AC_DEFUN([QT_CHECKS],
         		],
         	[
             if test x$QT_ROOT = x; then
-                if test -e "/opt/qt-4.6.0-1dfs"; then
-                    QT_ROOT="/opt/qt-4.6.0-1dfs"
+                if test -e "/opt/qt-4.6.0-1"; then
+                    QT_ROOT="/opt/qt-4.6.0-1"
                 else
-                    QT_ROOT="/tools/qt-4.6.0-1dfs"
+                    QT_ROOT="/tools/qt-4.6.0-1"
                 fi
             fi
             CPPFLAGS="$CPPFLAGS -I$QT_ROOT/include -I$QT_ROOT/include/QtCore -I$QT_ROOT/include/QtGui"
