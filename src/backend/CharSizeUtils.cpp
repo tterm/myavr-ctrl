@@ -33,6 +33,14 @@ const std::map<CharSize, std::string> & CharSizeUtils::getCharsizeStr(void) cons
 	return charsize_str_;
 }
 
+CharSize CharSizeUtils::getCharSize(const std::string & charsize) const {
+	std::map<std::string, CharSize>::const_iterator iter = str_charsize_.find(charsize);
+	if (iter != str_charsize_.end()) {
+		return iter->second;
+	}
+	return LibSerial::SerialStreamBuf::CHAR_SIZE_INVALID;
+}
+
 void CharSizeUtils::init(void) {
 	str_charsize_.insert(std::make_pair("5", LibSerial::SerialStreamBuf::CHAR_SIZE_5));
 	str_charsize_.insert(std::make_pair("6", LibSerial::SerialStreamBuf::CHAR_SIZE_6));

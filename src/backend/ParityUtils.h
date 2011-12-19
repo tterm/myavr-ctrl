@@ -24,6 +24,7 @@ public:
 	static ParityUtils * instance();
 	const StringParityMap & getStrParityMap(void) const;
 	const ParityStringMap & getParityStrMap(void) const;
+	Parity getParity(const std::string & pari) const;
 
 private:
 	ParityUtils();

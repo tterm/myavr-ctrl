@@ -23,6 +23,7 @@ public:
 	const std::map<std::string, FlowControl> & getStrFlowControl(void) const;
 	const std::map<FlowControl, std::string> & getFlowControl(void) const;
 	static FlowControlUtils * instance(void);
+	FlowControl getFlowControl(const std::string & flowcontrol) const;
 
 private:
 	FlowControlUtils();

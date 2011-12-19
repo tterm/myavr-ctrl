@@ -35,6 +35,14 @@ BaudUtils::getBauds(void) const {
 	return baud_str_;
 }
 
+BaudRate BaudUtils::getBaudRate(const std::string & rate) const {
+	std::map<std::string, BaudRate>::const_iterator iter = baud_rates_.find(rate);
+	if (iter != baud_rates_.end()) {
+		return iter->second;
+	}
+	return LibSerial::SerialStreamBuf::BAUD_INVALID;
+}
+
 void BaudUtils::initBaudRates(void) {
 	baud_rates_.insert(
 			std::make_pair("50", LibSerial::SerialStreamBuf::BAUD_50));

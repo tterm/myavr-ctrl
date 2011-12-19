@@ -33,6 +33,14 @@ const std::map<FlowControl, std::string> & FlowControlUtils::getFlowControl(void
 	return flow_controls_str_;
 }
 
+FlowControl FlowControlUtils::getFlowControl(const std::string & flowcontrol) const {
+	std::map<std::string, FlowControl>::const_iterator iter = str_flow_controls_.find(flowcontrol);
+	if (iter != str_flow_controls_.end()) {
+		return iter->second;
+	}
+	LibSerial::SerialStreamBuf::FLOW_CONTROL_INVALID;
+}
+
 void FlowControlUtils::init(void) {
 	str_flow_controls_.insert(std::make_pair("Hardware", LibSerial::SerialStreamBuf::FLOW_CONTROL_HARD));
 	str_flow_controls_.insert(std::make_pair("Software", LibSerial::SerialStreamBuf::FLOW_CONTROL_SOFT));

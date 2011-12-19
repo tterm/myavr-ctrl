@@ -21,6 +21,7 @@ public:
 	static BaudUtils * instance(void);
 	const std::map<std::string, BaudRate> & getBaudRates(void) const;
 	const std::map<BaudRate, std::string> & getBauds(void) const;
+	BaudRate getBaudRate(const std::string & rate) const;
 
 private:
 	BaudUtils();

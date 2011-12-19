@@ -24,6 +24,7 @@ public:
 		getStrCharsize(void) const;
 	const std::map<CharSize, std::string> &
 		getCharsizeStr(void) const;
+	CharSize getCharSize(const std::string & charsize) const;
 
 private:
 	CharSizeUtils();
