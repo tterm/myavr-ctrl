@@ -10,19 +10,24 @@
 #include <QtGui/QPushButton>
 #include <QtGui/QComboBox>
 #include <QtGui/QLabel>
+#include <QtGui/QLineEdit>
 #include <QtGui/QStatusBar>
 #include <QtGui/QApplication>
 #include <iostream>
-#include "BaudUtils.h"
-#include "CharSizeUtils.h"
-#include "FlowControlUtils.h"
-#include "ParityUtils.h"
+#include <sstream>
+#include "backend/BaudUtils.h"
+#include "backend/CharSizeUtils.h"
+#include "backend/FlowControlUtils.h"
+#include "backend/ParityUtils.h"
+#include "backend/ModeUtils.h"
+#include "backend/PortConfig.h"
+#include "backend/Command.h"
 
 namespace TTE {
 
 MainWindow::MainWindow(QWidget * parent) :
 	QMainWindow(parent), baud_box(0), stopbit_box(0), charsize_box(0),
-			parity_box(0), flowctrl_box(0), mode_box_(0) {
+			parity_box(0), flowctrl_box(0), mode_box_(0), device_(0) {
 	setupUI();
 }
 
@@ -117,9 +122,23 @@ void MainWindow::setupUI(void) {
 	layout->addWidget(flowctrl_label, 1, 4);
 
 	mode_box_ = new QComboBox(this);
+	ModeUtils * mode_utils = ModeUtils::instance();
+	std::map<std::string, char> modes = mode_utils->getModes();
+	std::map<std::string, char>::const_iterator mode_iter = modes.begin();
+	list.clear();
+	while (mode_iter != modes.end()) {
+		list.push_back(QString::fromStdString(mode_iter->first));
+		++mode_iter;
+	}
+	mode_box_->insertItems(0, list);
 	layout->addWidget(mode_box_, 2, 4);
 	QLabel * mode_label = new QLabel(tr("Mode"), this);
 	layout->addWidget(mode_label, 3, 4);
+
+	device_ = new QLineEdit(this);
+	layout->addWidget(device_, 2, 3);
+	QLabel * device_label = new QLabel(tr("Device"), this);
+	layout->addWidget(device_label, 3, 3);
 
 	QPushButton * button = new QPushButton(central);
 	button->setText("Push it");
@@ -143,9 +162,28 @@ void MainWindow::on_push_button_clicked(void) {
 			parity_box->currentText().toStdString()
 			<< "\n" <<
 			flowctrl_box->currentText().toStdString()
+			<< "\n"
+			<< mode_box_->currentText().toStdString() << "="
+			<< ModeUtils::instance()->getMode(mode_box_->currentText().toStdString())
+			<< "\n" << device_->text().toStdString()
 			<< std::endl;
 
-
+	std::string command = (ModeUtils::prefix);
+	command += ModeUtils::instance()->getMode(mode_box_->currentText().toStdString());
+	for (std::string::size_type i = 0, n = command.length() - 1; i < n; ++i) {
+		std::cerr << std::hex << (unsigned short)command[i];
+	}
+	std::cerr << command[command.length() - 1] << std::endl;
+	PortConfig config(device_->text().toStdString(),
+			baud_box->currentText().toStdString(),
+			charsize_box->currentText().toStdString(),
+			flowctrl_box->currentText().toStdString(),
+			parity_box->currentText().toStdString(),
+			stopbit_box->currentText().toStdString(),
+			mode_box_->currentText().toStdString());
+	std::cout << config << std::endl;
+	Command cmd;
+	cmd.execute(config);
 }
 
 }

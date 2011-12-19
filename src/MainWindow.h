@@ -12,6 +12,7 @@
 
 QT_BEGIN_NAMESPACE
 class QComboBox;
+class QLineEdit;
 QT_END_NAMESPACE
 
 namespace TTE {
@@ -35,6 +36,7 @@ private:
 	QComboBox * parity_box;
 	QComboBox * flowctrl_box;
 	QComboBox * mode_box_;
+	QLineEdit * device_;
 };
 
 }
