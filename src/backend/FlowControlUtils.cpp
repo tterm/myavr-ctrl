@@ -38,7 +38,7 @@ FlowControl FlowControlUtils::getFlowControl(const std::string & flowcontrol) co
 	if (iter != str_flow_controls_.end()) {
 		return iter->second;
 	}
-	LibSerial::SerialStreamBuf::FLOW_CONTROL_INVALID;
+	return LibSerial::SerialStreamBuf::FLOW_CONTROL_INVALID;
 }
 
 void FlowControlUtils::init(void) {

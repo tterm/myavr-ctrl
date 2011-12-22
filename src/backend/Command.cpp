@@ -23,11 +23,11 @@ Command::Command() {
 Command::~Command() {
 }
 
-void Command::execute(const PortConfig & config) {
+void Command::execute(const PortConfig & config) throw(DeviceNotFoundException) {
 	LibSerial::SerialStream stream;
 	stream.Open(config.getDevice());
 	if (!stream.good()) {
-		std::cerr << "Unable to open stream" << std::endl;
+		throw DeviceNotFoundException(config);
 	}
 	stream.SetBaudRate(BaudUtils::instance()->getBaudRate(config.getBaud()));
 	stream.SetCharSize(

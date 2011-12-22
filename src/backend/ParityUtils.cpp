@@ -38,7 +38,7 @@ Parity ParityUtils::getParity(const std::string & pari) const {
 	if (iter != str_par_map_.end()) {
 		return iter->second;
 	}
-	LibSerial::SerialStreamBuf::PARITY_INVALID;
+	return LibSerial::SerialStreamBuf::PARITY_INVALID;
 
 }
 

@@ -8,6 +8,7 @@
 #ifndef COMMAND_H_
 #define COMMAND_H_
 
+#include "DeviceNotFoundException.h"
 #include "PortConfig.h"
 
 namespace TTE {
@@ -16,7 +17,7 @@ class Command {
 public:
 	Command();
 	~Command();
-	void execute(const PortConfig & config);
+	void execute(const PortConfig & config) throw(DeviceNotFoundException);
 };
 
 }
