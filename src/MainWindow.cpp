@@ -12,6 +12,7 @@
 #include <QtGui/QLabel>
 #include <QtGui/QLineEdit>
 #include <QtGui/QStatusBar>
+#include <QtGui/QMessageBox>
 #include <QtGui/QApplication>
 #include <iostream>
 #include <sstream>
@@ -152,22 +153,6 @@ void MainWindow::setupUI(void) {
 
 //slots
 void MainWindow::on_push_button_clicked(void) {
-	std::cerr << "on_push_buton_clicked and value "
-			<< baud_box->currentText().toStdString()
-			<< "\n" <<
-			stopbit_box->currentText().toStdString()
-			<< "\n" <<
-			charsize_box->currentText().toStdString()
-			<< "\n" <<
-			parity_box->currentText().toStdString()
-			<< "\n" <<
-			flowctrl_box->currentText().toStdString()
-			<< "\n"
-			<< mode_box_->currentText().toStdString() << "="
-			<< ModeUtils::instance()->getMode(mode_box_->currentText().toStdString())
-			<< "\n" << device_->text().toStdString()
-			<< std::endl;
-
 	std::string command = (ModeUtils::prefix);
 	command += ModeUtils::instance()->getMode(mode_box_->currentText().toStdString());
 	for (std::string::size_type i = 0, n = command.length() - 1; i < n; ++i) {
@@ -181,9 +166,20 @@ void MainWindow::on_push_button_clicked(void) {
 			parity_box->currentText().toStdString(),
 			stopbit_box->currentText().toStdString(),
 			mode_box_->currentText().toStdString());
-	std::cout << config << std::endl;
+	if (config.getDevice().length() < 1) {
+		QMessageBox box;
+		box.setText("No device set!");
+		box.exec();
+		return;
+	}
 	Command cmd;
-	cmd.execute(config);
+	try {
+		cmd.execute(config);
+	} catch (const DeviceNotFoundException & ex) {
+		QMessageBox box;
+		box.setText(QString::fromUtf8(ex.what()));
+		box.exec();
+	}
 }
 
 }

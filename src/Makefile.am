@@ -14,7 +14,8 @@ myavr_ctrl_SOURCES = myavr-ctrl.cpp moc_MainWindow.cpp MainWindow.cpp \
                      backend/ParityUtils.cpp \
                      backend/ModeUtils.cpp \
                      backend/PortConfig.cpp \
-                     backend/Command.cpp
+                     backend/Command.cpp \
+                     backend/DeviceNotFoundException.cpp
                      
 #nodist_myavr_ctrl_SOURCES = moc_MainWindow.cpp
 
