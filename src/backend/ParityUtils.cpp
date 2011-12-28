@@ -7,7 +7,7 @@
 
 #include "ParityUtils.h"
 
-namespace TTE {
+namespace backend {
 
 ParityUtils * ParityUtils::instance_ = 0;
 

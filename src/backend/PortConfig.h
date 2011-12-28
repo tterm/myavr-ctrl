@@ -11,12 +11,14 @@
 #include <string>
 #include <iosfwd>
 
+namespace backend {
+
 class PortConfig {
 public:
-	PortConfig(const std::string & device, const std::string & baud,
+	PortConfig();
+	PortConfig(const std::string & baud,
 			const std::string & charsize, const std::string & flowcontrol,
-			const std::string & parity, const std::string & stopbit,
-			const std::string & mode);
+			const std::string & parity, const std::string & stopbit);
 	~PortConfig();
 	const std::string & getBaud(void) const {
 		return baud_;
@@ -41,11 +43,17 @@ public:
 		return device_;
 	}
 
+	void setDevice(const std::string & device) {
+		device_ = device;
+	}
+
 	const std::string & getMode(void) const {
 		return mode_;
 	}
 
-
+	void setMode(const std::string & mode) {
+		mode_ = mode;
+	}
 
 private:
 	std::string baud_;
@@ -58,5 +66,7 @@ private:
 };
 
 std::ostream & operator<<(std::ostream & os, const PortConfig & config);
+
+}
 
 #endif /* PORTCONFIG_H_ */

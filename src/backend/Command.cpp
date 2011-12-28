@@ -14,7 +14,7 @@
 #include "ParityUtils.h"
 #include <iostream>
 
-namespace TTE {
+namespace backend {
 
 Command::Command() {
 

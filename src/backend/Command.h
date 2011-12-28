@@ -11,7 +11,7 @@
 #include "DeviceNotFoundException.h"
 #include "PortConfig.h"
 
-namespace TTE {
+namespace backend {
 
 class Command {
 public:

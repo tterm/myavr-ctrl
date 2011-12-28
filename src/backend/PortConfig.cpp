@@ -10,6 +10,12 @@
 #include <iostream>
 #include <sstream>
 
+namespace backend {
+
+PortConfig::PortConfig() {
+
+}
+
 PortConfig::PortConfig(const std::string & device, const std::string & baud,
 		const std::string & charsize, const std::string & flowcontrol,
 		const std::string & parity, const std::string & stopbit, const std::string & mode) :
@@ -32,3 +38,5 @@ std::ostream & operator<<(std::ostream & os, const PortConfig & config) {
 	   << "\nMode: " << config.getMode();
 	   return os;
 }
+
+}  // namespace backend

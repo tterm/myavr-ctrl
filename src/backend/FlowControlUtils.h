@@ -12,7 +12,7 @@
 #include <map>
 #include <string>
 
-namespace TTE {
+namespace backend {
 
 typedef LibSerial::SerialStreamBuf::FlowControlEnum FlowControl;
 typedef std::map<FlowControl, std::string> FlowControlMap;

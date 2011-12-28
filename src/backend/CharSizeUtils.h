@@ -12,7 +12,7 @@
 #include <string>
 #include <SerialStreamBuf.h>
 
-namespace TTE {
+namespace backend {
 
 typedef LibSerial::SerialStreamBuf::CharSizeEnum CharSize;
 

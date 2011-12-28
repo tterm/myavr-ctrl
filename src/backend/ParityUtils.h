@@ -12,7 +12,7 @@
 #include <string>
 #include <SerialStreamBuf.h>
 
-namespace TTE {
+namespace backend {
 
 typedef LibSerial::SerialStreamBuf::ParityEnum Parity;
 typedef std::map<std::string, Parity> StringParityMap;

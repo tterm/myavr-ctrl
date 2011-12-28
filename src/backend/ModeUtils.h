@@ -11,7 +11,7 @@
 #include <map>
 #include <string>
 
-namespace TTE {
+namespace backend {
 
 
 class ModeUtils {

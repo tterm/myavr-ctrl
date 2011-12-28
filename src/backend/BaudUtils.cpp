@@ -7,7 +7,7 @@
 
 #include "BaudUtils.h"
 
-namespace TTE {
+namespace backend {
 
 BaudUtils * BaudUtils::instance_ = 0;
 

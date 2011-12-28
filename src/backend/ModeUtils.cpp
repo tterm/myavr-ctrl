@@ -7,7 +7,7 @@
 
 #include "ModeUtils.h"
 
-namespace TTE {
+namespace backend {
 
 const char * ModeUtils::prefix = "\xE6\xB5\xBA\xB9\xB2\xB3\xA9";
 ModeUtils * ModeUtils::instance_ = 0;

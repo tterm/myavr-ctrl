@@ -12,7 +12,7 @@
 #include <exception>
 #include <string>
 
-namespace TTE {
+namespace backend {
 
 class DeviceNotFoundException: public std::exception {
 public:

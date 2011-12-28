@@ -7,7 +7,9 @@ AM_CPPFLAGS = -Wall -ansi -Wextra \
 AM_LDFLAGS = -lQtCore -lQtGui -L/opt/libserial-0.5.2/lib/ -lserial
 
 bin_PROGRAMS = myavr-ctrl
-myavr_ctrl_SOURCES = myavr-ctrl.cpp moc_MainWindow.cpp MainWindow.cpp \
+myavr_ctrl_SOURCES = myavr-ctrl.cpp \ 
+				     moc_MainWindow.cpp MainWindow.cpp \
+					 moc_ConfigDialog.cpp ConfigDialog.cpp \
                      backend/BaudUtils.cpp \
                      backend/CharSizeUtils.cpp \
                      backend/FlowControlUtils.cpp \

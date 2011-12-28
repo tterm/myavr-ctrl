@@ -1,11 +1,14 @@
-#include <iostream>
+
+#include "MainWindowPresenter.h"
+#include "backend/PortConfig.h"
 #include <QtGui/QApplication>
-#include <QtGui/QMainWindow>
-#include "MainWindow.h"
 
 int main(int argc, char ** argv) {
 	QApplication app(argc, argv);
-	TTE::MainWindow w;
-	w.show();
+	PortConfig * config = new PortConfig();
+	TTE::MainWindowPresenter mwp(config);
+	mwp.start();
+	//TTE::MainWindow w;
+	//w.show();
 	return app.exec();
 }

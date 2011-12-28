@@ -7,7 +7,7 @@
 
 #include "CharSizeUtils.h"
 
-namespace TTE {
+namespace backend {
 
 CharSizeUtils * CharSizeUtils::instance_ = 0;
 

@@ -7,7 +7,7 @@
 
 #include "DeviceNotFoundException.h"
 
-namespace TTE {
+namespace backend {
 
 DeviceNotFoundException::DeviceNotFoundException(const PortConfig & config) {
 	reason_ = ("No device found on ");

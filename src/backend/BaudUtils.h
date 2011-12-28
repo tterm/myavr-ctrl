@@ -11,7 +11,7 @@
 #include <map>
 #include <SerialStreamBuf.h>
 
-namespace TTE {
+namespace backend {
 
 typedef LibSerial::SerialStreamBuf::BaudRateEnum BaudRate;
 

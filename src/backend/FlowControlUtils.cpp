@@ -7,7 +7,7 @@
 
 #include "FlowControlUtils.h"
 
-namespace TTE {
+namespace backend {
 
 FlowControlUtils * FlowControlUtils::instance_ = 0;
 
