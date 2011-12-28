@@ -13,9 +13,12 @@
 QT_BEGIN_NAMESPACE
 class QComboBox;
 class QLineEdit;
+class QMenu;
 QT_END_NAMESPACE
 
 namespace TTE {
+
+class ConfigDialog;
 
 class MainWindow : public QMainWindow {
 	Q_OBJECT
@@ -25,18 +28,19 @@ public:
 
 public slots:
 	void on_push_button_clicked(void);
+	void on_config_action_triggered(void);
+	void on_ok_button_clicked(void);
+	void on_cancel_button_clicked(void);
 
 private:
 	void setupUI(void);
+	void createActions(void);
+	void createMenus(void);
 
 private:
-	QComboBox * baud_box;
-	QComboBox * stopbit_box;
-	QComboBox * charsize_box;
-	QComboBox * parity_box;
-	QComboBox * flowctrl_box;
 	QComboBox * mode_box_;
 	QLineEdit * device_;
+	QMenu * config_menu_;
 };
 
 }
