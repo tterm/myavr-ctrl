@@ -16,19 +16,27 @@ class QPushButton;
 class QLineEdit;
 QT_END_NAMESPACE
 
-namespace TTE {
+namespace gui {
+
+class DialogPresenter;
 
 class ConfigDialog: public QDialog {
 Q_OBJECT
 public:
-	ConfigDialog(QWidget * parent = 0);
+	ConfigDialog(DialogPresenter * presenter, QWidget * parent = 0);
 	virtual ~ConfigDialog();
+	QString getBaudValue(void) const;
+	QString getCharSizeValue(void) const;
+	QString getFlowCtrlValue(void) const;
+	QString getParityValue(void) const;
+	QString getStopBitValue(void) const;
 
 private:
 	void setupUi(void);
 
 private slots:
 	void on_ok_button_clicked();
+	void on_cancel_button_clicked();
 
 private:
 	QComboBox * baud_box_;
@@ -38,6 +46,7 @@ private:
 	QComboBox * flowctrl_box_;
 	QPushButton * ok_button_;
 	QPushButton * cancel_button_;
+	DialogPresenter * presenter_;
 };
 
 }

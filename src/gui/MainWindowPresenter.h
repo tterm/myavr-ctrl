@@ -8,25 +8,31 @@
 #ifndef MAINWINDOWPRESENTER_H_
 #define MAINWINDOWPRESENTER_H_
 
-#include "backend/PortConfig.h"
+#include <QtCore/QObject>
+#include <QtCore/QStringList>
 
+namespace backend {
+class ConfigModel;
+}
 
-namespace TTE {
+namespace gui {
 
 class MainWindow;
 class DialogPresenter;
 
-class MainWindowPresenter {
+class MainWindowPresenter : public QObject {
+	Q_OBJECT
 public:
-	MainWindowPresenter(PortConfig * config);
+	MainWindowPresenter(backend::ConfigModel * model, QObject * parent = 0);
 	virtual ~MainWindowPresenter();
 	void start(void);
-
-public slots:
-	void on_edit_config_clicked(void);
+	void editConfig(const QString & name);
+	QStringList getConfigNames(void) const;
+	QStringList getModes(void) const;
+	void onPush(void);
 
 private:
-	PortConfig * config_;
+	backend::ConfigModel * model_;
 	MainWindow * mainWindow_;
 	DialogPresenter * dialogPresenter_;
 };

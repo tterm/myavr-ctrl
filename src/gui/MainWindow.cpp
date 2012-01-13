@@ -6,16 +6,13 @@
  */
 
 #include "MainWindow.h"
+#include "MainWindowPresenter.h"
 
-#include "backend/BaudUtils.h"
-#include "backend/CharSizeUtils.h"
-#include "backend/FlowControlUtils.h"
-#include "backend/ParityUtils.h"
-#include "backend/ModeUtils.h"
-#include "backend/PortConfig.h"
-#include "backend/Command.h"
+#include <backend/PortConfig.h>
+#include <backend/Command.h>
 
 #include <QtGui/QGridLayout>
+#include <QtGui/QVBoxLayout>
 #include <QtGui/QPushButton>
 #include <QtGui/QComboBox>
 #include <QtGui/QLabel>
@@ -30,89 +27,98 @@
 #include <iostream>
 #include <sstream>
 
-namespace TTE {
+using namespace backend;
 
-MainWindow::MainWindow(QWidget * parent) :
-	QMainWindow(parent), mode_box_(0), device_(0) {
+
+namespace gui {
+
+MainWindow::MainWindow(MainWindowPresenter * presenter, QWidget * parent) :
+	QMainWindow(parent),
+	mode_box_(0),
+	device_(0),
+	config_box_(0),
+	push_it_button_(0),
+	edit_button_(0),
+	presenter_(presenter)
+{
 	setupUI();
 	metaObject()->connectSlotsByName(this);
+	std::cout << "MainWindow()" << std::endl;
 }
 
 MainWindow::~MainWindow() {
+	std::cout << "~MainWindow()" << std::endl;
 }
 
 void MainWindow::setupUI(void) {
-	createMenus();
-	createActions();
 	QWidget * central = new QWidget(this);
 	setCentralWidget(central);
-	QGridLayout * layout = new QGridLayout(central);
-
+	QVBoxLayout * box = new QVBoxLayout(central);
+	QGridLayout * layout = new QGridLayout;
+	box->addLayout(layout);
+	int gridrow = 0;
 
 	QStringList list;
+	config_box_ = new QComboBox(this);
+	config_box_->addItems(presenter_->getConfigNames());
+	edit_button_ = new QPushButton(this);
+	edit_button_->setObjectName("edit_config");
+	edit_button_->setText(tr("Edit"));
+	QLabel * config_label = new QLabel(tr("Config"), this);
+	layout->addWidget(config_label, gridrow, 0);
+	layout->addWidget(config_box_, gridrow, 1);
+	layout->addWidget(edit_button_, gridrow, 2);
+	++gridrow;
+
 	mode_box_ = new QComboBox(this);
-	ModeUtils * mode_utils = ModeUtils::instance();
-	std::map<std::string, char> modes = mode_utils->getModes();
-	std::map<std::string, char>::const_iterator mode_iter = modes.begin();
-	list.clear();
-	while (mode_iter != modes.end()) {
-		list.push_back(QString::fromStdString(mode_iter->first));
-		++mode_iter;
-	}
-	mode_box_->insertItems(0, list);
-	layout->addWidget(mode_box_, 0, 1);
+	mode_box_->insertItems(0, presenter_->getModes());
+	layout->addWidget(mode_box_, gridrow, 1);
 	QLabel * mode_label = new QLabel(tr("Mode"), this);
-	layout->addWidget(mode_label, 0, 0);
-
+	layout->addWidget(mode_label, gridrow, 0);
+	++gridrow;
 	device_ = new QLineEdit(this);
-	layout->addWidget(device_, 1, 1);
+	layout->addWidget(device_, gridrow, 1);
 	QLabel * device_label = new QLabel(tr("Device"), this);
-	layout->addWidget(device_label, 1, 0);
+	layout->addWidget(device_label, gridrow, 0);
+	++gridrow;
 
-	QPushButton * button = new QPushButton(central);
-	button->setText("Push it");
-	button->setObjectName("push_button");
-	layout->addWidget(button);
-
+	push_it_button_ = new QPushButton(central);
+	push_it_button_->setText(tr("Push it"));
+	push_it_button_->setObjectName("push_button");
+	//layout->addWidget(push_it_button_, gridrow, 0);
+	box->addWidget(push_it_button_);
 	QStatusBar * sb = new QStatusBar(this);
 	setStatusBar(sb);
 
 }
 
-void MainWindow::createActions(void) {
-	QAction * action_dialog = new QAction("config", this);
-	action_dialog->setObjectName("config_action");
-	config_menu_->addAction(action_dialog);
+QString MainWindow::getConfigValue(void) const {
+	return config_box_->currentText();
 }
 
-void MainWindow::on_config_action_triggered(void) {
-	std::cout << "Action triggered" << std::endl;
+QString MainWindow::getModeValue(void) const {
+	return mode_box_->currentText();
 }
 
-void MainWindow::createMenus(void) {
-	QMenuBar * bar = menuBar();
-	config_menu_ = new QMenu("Config", this);
-	if (bar != 0) {
-		std::cout << " menu !_ 0" << std::endl;
-		bar->addMenu(config_menu_);
-	}
+QString MainWindow::getDeviceValue(void) const {
+	return device_->text();
 }
 
 //slots
 void MainWindow::on_push_button_clicked(void) {
-	std::string command = (ModeUtils::prefix);
-	command += ModeUtils::instance()->getMode(mode_box_->currentText().toStdString());
-	for (std::string::size_type i = 0, n = command.length() - 1; i < n; ++i) {
-		std::cerr << std::hex << (unsigned short)command[i];
+	if (device_->text().length() == 0) {
+		QMessageBox::critical(this, tr("Device error"), tr("A valid device is needed like /dev/ttyUSB0"));
+		return;
 	}
-	std::cerr << command[command.length() - 1] << std::endl;
+	try {
+		presenter_->onPush();
+	} catch (std::exception & ex) {
+		QMessageBox::critical(this, tr("Error"), QString::fromUtf8(ex.what()));
+	}
 }
 
-void MainWindow::on_ok_button_clicked(void) {
-	std::cout << "Ok clicked in dialog" << std::endl;
+void MainWindow::on_edit_config_clicked(void) {
+	presenter_->editConfig(config_box_->currentText());
 }
 
-void MainWindow::on_cancel_button_clicked(void) {
-//	dialog->hide();
-}
 }

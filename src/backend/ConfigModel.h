@@ -7,17 +7,27 @@
 #ifndef CONFIGMODEL_H_
 #define CONFIGMODEL_H_
 
-#include <tr1_impl/unordered_map>
+#include "PortConfig.h"
+#include "ConfigNotFoundException.h"
+#include <string>
+#include <vector>
+#include <tr1/unordered_map>
 
 namespace backend {
+
+typedef std::tr1::unordered_map<std::string, PortConfig> ConfigTable;
 
 class ConfigModel {
 public:
 	ConfigModel();
 	virtual ~ConfigModel();
+	PortConfig * getPortConfig(const std::string & name) throw(ConfigNotFoundException);
+	std::vector<std::string> getConfigNames(void) const;
 
-	std::unordered_map<std::string, PortConfig> configs_;
-	// map von port configs
+private:
+	void init(void);
+	ConfigTable configs_;
+
 };
 
 }

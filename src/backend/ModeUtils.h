@@ -16,7 +16,8 @@ namespace backend {
 
 class ModeUtils {
 public:
-	static const char * prefix;
+	static const char * request_prefix;
+	static const char * response_prefix;
 
 	~ModeUtils();
 	static ModeUtils * instance(void);

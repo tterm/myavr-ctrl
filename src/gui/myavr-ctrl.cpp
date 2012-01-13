@@ -1,14 +1,16 @@
 
 #include "MainWindowPresenter.h"
 #include "backend/PortConfig.h"
+#include <backend/ConfigModel.h>
 #include <QtGui/QApplication>
+#include <iostream>
+
+using namespace gui;
 
 int main(int argc, char ** argv) {
 	QApplication app(argc, argv);
-	PortConfig * config = new PortConfig();
-	TTE::MainWindowPresenter mwp(config);
+	backend::ConfigModel * model = new backend::ConfigModel;
+	MainWindowPresenter mwp(model);
 	mwp.start();
-	//TTE::MainWindow w;
-	//w.show();
 	return app.exec();
 }
