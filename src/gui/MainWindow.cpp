@@ -112,8 +112,8 @@ void MainWindow::on_push_button_clicked(void) {
 	}
 	try {
 		presenter_->onPush();
-	} catch (std::exception & ex) {
-		QMessageBox::critical(this, tr("Error"), QString::fromUtf8(ex.what()));
+	} catch (backend::DeviceNotFoundException & ex) {
+		QMessageBox::critical(this, tr("Device not found"), QString::fromUtf8(ex.what()));
 	}
 }
 

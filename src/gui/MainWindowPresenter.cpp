@@ -71,7 +71,7 @@ QStringList MainWindowPresenter::getModes(void) const {
 	return result;
 }
 
-void MainWindowPresenter::onPush(void) {
+void MainWindowPresenter::onPush(void) throw (backend::DeviceNotFoundException) {
 	backend::PortConfig * config = model_->getPortConfig(
 			mainWindow_->getConfigValue().toStdString());
 	config->setMode(mainWindow_->getModeValue().toStdString());

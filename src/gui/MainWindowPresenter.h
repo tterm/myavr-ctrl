@@ -11,6 +11,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
+#include <backend/DeviceNotFoundException.h>
+
 namespace backend {
 class ConfigModel;
 }
@@ -29,7 +31,7 @@ public:
 	void editConfig(const QString & name);
 	QStringList getConfigNames(void) const;
 	QStringList getModes(void) const;
-	void onPush(void);
+	void onPush(void) throw(backend::DeviceNotFoundException);
 
 private:
 	backend::ConfigModel * model_;
