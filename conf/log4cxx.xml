@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+ <!-- Output the log message to system console.
+       -->
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">    
+	   <param name="Target" value="System.out"/>
+ 	   <layout class="org.apache.log4j.PatternLayout">
+           <param name="ConversionPattern" value="%-5p %c - %m%n"/>
+	   </layout>
+    </appender>
+
+       <!-- Output the log message to log file
+       -->
+    <appender name="file" class="org.apache.log4j.FileAppender">
+        <param name="file" value="appxLogFile.log" />
+        <param name="append" value="true" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%d %-5p [%t:%x] %C{2} (%F:%L) - %m%n" />
+       </layout>
+   </appender>
+
+    <root>
+        <priority value ="warn" />  
+        <appender-ref ref="console"/>
+    </root>
+    <category name="backend" additivity="false">
+        <priority value ="trace" />                                                      
+        <appender-ref ref="console"/>
+     </category>
+     <category name="gui" additivity="false">
+        <priority value ="trace" />                                                      
+        <appender-ref ref="console"/>
+     </category>
+     <category name="console" additivity="false">
+        <priority value ="trace" />                                                      
+        <appender-ref ref="console"/>
+     </category>
+     <category name="lifecycle" additivity="false">
+        <priority value ="trace" />                                                      
+        <appender-ref ref="console"/>
+     </category>
+                                                                                
+</log4j:configuration>
