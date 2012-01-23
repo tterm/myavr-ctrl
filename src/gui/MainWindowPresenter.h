@@ -11,6 +11,8 @@
 #include <QtCore/QObject>
 #include <QtCore/QStringList>
 
+#include <log4cxx/logger.h>
+
 #include <backend/DeviceNotFoundException.h>
 
 namespace backend {
@@ -37,6 +39,8 @@ private:
 	backend::ConfigModel * model_;
 	MainWindow * mainWindow_;
 	DialogPresenter * dialogPresenter_;
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
 };
 
 }

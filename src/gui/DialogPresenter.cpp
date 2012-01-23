@@ -17,6 +17,9 @@
 #include <string>
 #include <QtCore/QString>
 
+using namespace log4cxx;
+
+
 namespace gui {
 
 const int DialogPresenter::baud_index;
@@ -25,13 +28,16 @@ const int DialogPresenter::flow_ctrl_index;
 const int DialogPresenter::parity_index;
 const int DialogPresenter::stopbit_index;
 
+LoggerPtr DialogPresenter::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr DialogPresenter::logger(Logger::getLogger("gui.DialogPresenter"));
+
 DialogPresenter::DialogPresenter(backend::ConfigModel * model, QObject * parent) :
 	QObject(parent), model_(model), current_config_(0), dialog_(0) {
-	std::cout << "DialogPresenter()" << std::endl;
+	LOG4CXX_TRACE(cdtor,"DialogPresenter()");
 }
 
 DialogPresenter::~DialogPresenter() {
-	std::cout << "~DialogPresenter()" << std::endl;
+	LOG4CXX_TRACE(cdtor,"~DialogPresenter()");
 }
 
 void DialogPresenter::start(const QString & config_name)

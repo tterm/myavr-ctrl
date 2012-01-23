@@ -10,6 +10,7 @@
 
 #include "DeviceNotFoundException.h"
 #include "PortConfig.h"
+#include <log4cxx/logger.h>
 
 namespace backend {
 
@@ -18,6 +19,9 @@ public:
 	Command();
 	~Command();
 	void execute(const PortConfig & config) throw(DeviceNotFoundException);
+private:
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
 };
 
 }

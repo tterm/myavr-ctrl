@@ -15,14 +15,20 @@
 
 #include <iostream>
 
+using namespace log4cxx;
+
+
 namespace gui {
+
+LoggerPtr MainWindowPresenter::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr MainWindowPresenter::logger(Logger::getLogger("gui.MainWindowPresenter"));
 
 MainWindowPresenter::MainWindowPresenter(backend::ConfigModel * model,
 		QObject * parent) :
 	QObject(parent), model_(model) {
 	mainWindow_ = new MainWindow(this);
 	dialogPresenter_ = new DialogPresenter(model_, this);
-	std::cout << "MainWindowPresenter()" << std::endl;
+	LOG4CXX_TRACE(cdtor, "MainWindowPresenter()");
 }
 
 MainWindowPresenter::~MainWindowPresenter() {
@@ -32,7 +38,7 @@ MainWindowPresenter::~MainWindowPresenter() {
 	}
 	delete mainWindow_;
 	mainWindow_ = 0;
-	std::cout << "~MainWindowPresenter()" << std::endl;
+	LOG4CXX_TRACE(cdtor, "~MainWindowPresenter()");
 }
 
 void MainWindowPresenter::start(void) {

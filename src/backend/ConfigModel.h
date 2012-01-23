@@ -12,6 +12,7 @@
 #include <string>
 #include <vector>
 #include <tr1/unordered_map>
+#include <log4cxx/logger.h>
 
 namespace backend {
 
@@ -27,6 +28,8 @@ public:
 private:
 	void init(void);
 	ConfigTable configs_;
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
 
 };
 

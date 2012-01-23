@@ -12,6 +12,8 @@
 #include <backend/ConfigNotFoundException.h>
 #include <map>
 
+#include <log4cxx/logger.h>
+
 QT_BEGIN_NAMESPACE
 class QString;
 QT_END_NAMESPACE
@@ -64,6 +66,8 @@ private:
 	backend::PortConfig * current_config_;
 	std::map<int, unsigned int> current_index_;
 	ConfigDialog * dialog_;
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
 };
 
 }

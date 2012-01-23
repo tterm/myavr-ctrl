@@ -11,19 +11,27 @@
 #include "ModeUtils.h"
 #include <iostream>
 
+using namespace log4cxx;
+
+
 namespace backend {
 
-Command::Command() {
+LoggerPtr Command::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr Command::logger(Logger::getLogger("backend.Command"));
 
+Command::Command() {
+	LOG4CXX_TRACE(cdtor, "Command()");
 }
 
 Command::~Command() {
+	LOG4CXX_TRACE(cdtor, "~Command()");
 }
 
 void Command::execute(const PortConfig & config) throw(DeviceNotFoundException) {
 	LibSerial::SerialStream stream;
 	stream.Open(config.getDevice());
 	if (!stream.good()) {
+		LOG4CXX_ERROR(logger, "Error opening device " + config.getDevice());
 		throw DeviceNotFoundException(config);
 	}
 	stream.SetBaudRate(config.getBaudRate());
@@ -35,11 +43,11 @@ void Command::execute(const PortConfig & config) throw(DeviceNotFoundException) 
 	//	stream.SetVTime(100);
 	std::string com(ModeUtils::request_prefix);
 	com.push_back(ModeUtils::instance()->getMode(config.getMode()));
-	std::cout << "Write" << std::endl;
+	LOG4CXX_TRACE(logger, "Write stream to device");
 	stream.write(com.c_str(), com.length());
-	std::cout << "Written" << std::endl;
+	LOG4CXX_TRACE(logger, "Finished writing stream to device");
 	if (!stream.good()) {
-		std::cerr << "Error sending data to programmer " << std::endl;
+		LOG4CXX_ERROR(logger, "Error writing to device");
 		return;
 	}
 	stream.clear();
@@ -50,7 +58,7 @@ void Command::execute(const PortConfig & config) throw(DeviceNotFoundException) 
 	char c;
 	while (c != '\n') {
 		stream.get(c);
-		std::cout << "Value: " << std::hex << (int)c << std::endl;
+		LOG4CXX_TRACE(logger, "Value: " << std::hex << (int)c);
 	}
 	/*char buff[100];
 	std::cout << "get" << std::endl;

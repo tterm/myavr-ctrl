@@ -7,13 +7,24 @@
 
 #include "ConfigModel.h"
 
+
+
+using namespace log4cxx;
+
+
 namespace backend {
 
-ConfigModel::ConfigModel() {
+LoggerPtr ConfigModel::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr ConfigModel::logger(Logger::getLogger("backend.ConfigModel"));
+
+ConfigModel::ConfigModel()
+{
 	init();
+	LOG4CXX_TRACE(cdtor, "ConfigModel()");
 }
 
 ConfigModel::~ConfigModel() {
+	LOG4CXX_TRACE(cdtor, "~ConfigModel()");
 }
 
 PortConfig * ConfigModel::getPortConfig(const std::string & name) throw(ConfigNotFoundException){

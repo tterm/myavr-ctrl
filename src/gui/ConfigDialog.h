@@ -10,6 +10,8 @@
 
 #include <QtGui/QDialog>
 
+#include <log4cxx/logger.h>
+
 QT_BEGIN_NAMESPACE
 class QComboBox;
 class QPushButton;
@@ -47,6 +49,9 @@ private:
 	QPushButton * ok_button_;
 	QPushButton * cancel_button_;
 	DialogPresenter * presenter_;
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
+
 };
 
 }

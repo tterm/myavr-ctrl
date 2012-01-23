@@ -9,7 +9,13 @@
 
 #include <ostream>
 
+using namespace log4cxx;
+
+
 namespace backend {
+
+LoggerPtr PortConfig::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr PortConfig::logger(Logger::getLogger("backend.PortConfig"));
 
 PortConfig::PortConfig(BaudRateEnum baud,
 		CharSizeEnum char_size,
@@ -20,14 +26,16 @@ PortConfig::PortConfig(BaudRateEnum baud,
  flow_ctrl_(flow_ctrl), parity_(parity),
  stopbit_(stopbit)
 {
-
+	LOG4CXX_TRACE(cdtor, "PortConfig()");
 }
 
 PortConfig::PortConfig(const PortConfig & to_copy) {
 	copy_values(to_copy);
+	LOG4CXX_TRACE(cdtor, "PortConfig(const PortConfig &)");
 }
 
 PortConfig::~PortConfig() {
+	LOG4CXX_TRACE(cdtor, "~PortConfig()");
 }
 
 PortConfig & PortConfig::operator =(const PortConfig & to_assign) {

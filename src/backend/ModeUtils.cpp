@@ -7,7 +7,12 @@
 
 #include "ModeUtils.h"
 
+using namespace log4cxx;
+
+
 namespace backend {
+
+LoggerPtr ModeUtils::cdtor(Logger::getLogger("lifecycle"));
 
 const char * ModeUtils::request_prefix = "\xE6\xB5\xBA\xB9\xB2\xB3\xA9";
 const char * ModeUtils::response_prefix = "\xF7\xB1";
@@ -15,9 +20,11 @@ ModeUtils * ModeUtils::instance_ = 0;
 
 ModeUtils::ModeUtils() {
 	init();
+	LOG4CXX_TRACE(cdtor, "ModeUtils()");
 }
 
 ModeUtils::~ModeUtils() {
+	LOG4CXX_TRACE(cdtor, "~ModeUtils()");
 }
 
 ModeUtils * ModeUtils::instance(void) {

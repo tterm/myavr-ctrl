@@ -12,6 +12,8 @@
 #include <string>
 #include <SerialStreamBuf.h>
 
+#include <log4cxx/logger.h>
+
 namespace backend {
 
 typedef LibSerial::SerialStreamBuf::BaudRateEnum BaudRateEnum;
@@ -98,6 +100,8 @@ private:
 	unsigned int stopbit_;
 	std::string device_;
 	std::string mode_;
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
 };
 
 std::ostream & operator<<(std::ostream & os, const PortConfig & pc);

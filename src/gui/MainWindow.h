@@ -10,6 +10,8 @@
 
 #include <QtGui/QMainWindow>
 
+#include <log4cxx/logger.h>
+
 QT_BEGIN_NAMESPACE
 class QComboBox;
 class QLineEdit;
@@ -44,6 +46,8 @@ private:
 	QPushButton * push_it_button_;
 	QPushButton * edit_button_;
 	MainWindowPresenter * presenter_;
+	static log4cxx::LoggerPtr cdtor;
+	static log4cxx::LoggerPtr logger;
 };
 
 }

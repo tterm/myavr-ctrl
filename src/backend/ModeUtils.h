@@ -11,6 +11,8 @@
 #include <map>
 #include <string>
 
+#include <log4cxx/logger.h>
+
 namespace backend {
 
 
@@ -35,6 +37,7 @@ private:
 	static ModeUtils * instance_;
 	std::map<std::string, char> str_to_mode_;
 	std::map<char, std::string> mode_to_str_;
+	static log4cxx::LoggerPtr cdtor;
 };
 
 }  // namespace TTE

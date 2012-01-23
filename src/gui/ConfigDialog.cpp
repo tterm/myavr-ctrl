@@ -17,9 +17,14 @@
 #include <iostream>
 
 using namespace backend;
+using namespace log4cxx;
+
 
 
 namespace gui {
+
+LoggerPtr ConfigDialog::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr ConfigDialog::logger(Logger::getLogger("gui.ConfigDialog"));
 
 ConfigDialog::ConfigDialog(DialogPresenter * presenter, QWidget * parent) :
 	QDialog(parent), baud_box_(0), stopbit_box_(0), charsize_box_(0), parity_box_(0),
@@ -27,11 +32,11 @@ ConfigDialog::ConfigDialog(DialogPresenter * presenter, QWidget * parent) :
 			cancel_button_(0), presenter_(presenter) {
 	setupUi();
 	metaObject()->connectSlotsByName(this);
-	std::cout << "ConfigDialog()" << std::endl;
+	LOG4CXX_TRACE(cdtor, "ConfigDialog()");
 }
 
 ConfigDialog::~ConfigDialog() {
-	std::cout << "~ConfigDialog" << std::endl;
+	LOG4CXX_TRACE(cdtor, "~ConfigDialog()");
 }
 
 void ConfigDialog::setupUi(void) {

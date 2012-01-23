@@ -28,9 +28,14 @@
 #include <sstream>
 
 using namespace backend;
+using namespace log4cxx;
 
 
 namespace gui {
+
+LoggerPtr MainWindow::cdtor(Logger::getLogger("lifecycle"));
+LoggerPtr MainWindow::logger(Logger::getLogger("gui.MainWindow"));
+
 
 MainWindow::MainWindow(MainWindowPresenter * presenter, QWidget * parent) :
 	QMainWindow(parent),
@@ -43,11 +48,11 @@ MainWindow::MainWindow(MainWindowPresenter * presenter, QWidget * parent) :
 {
 	setupUI();
 	metaObject()->connectSlotsByName(this);
-	std::cout << "MainWindow()" << std::endl;
+	LOG4CXX_TRACE(cdtor, "MainWindow()");
 }
 
 MainWindow::~MainWindow() {
-	std::cout << "~MainWindow()" << std::endl;
+	LOG4CXX_TRACE(cdtor, "~MainWindow()");
 }
 
 void MainWindow::setupUI(void) {
