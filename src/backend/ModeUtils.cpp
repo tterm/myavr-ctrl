@@ -61,6 +61,9 @@ void ModeUtils::init(void) {
 	str_to_mode_.insert(std::make_pair("Data", 'd'));
 	str_to_mode_.insert(std::make_pair("Reset Board", 'r'));
 	str_to_mode_.insert(std::make_pair("Reset Programmer", 'R'));
+	str_to_mode_.insert(std::make_pair("Power on Board", '+'));
+	str_to_mode_.insert(std::make_pair("Power off Board", '-'));
+	str_to_mode_.insert(std::make_pair("Status", 'i'));
 	std::map<std::string, char>::const_iterator iter =
 			str_to_mode_.begin();
 	while (iter != str_to_mode_.end()) {

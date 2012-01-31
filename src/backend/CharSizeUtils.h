@@ -10,11 +10,18 @@
 
 #include <map>
 #include <string>
-#include <SerialStreamBuf.h>
+#include <boost/asio.hpp>
 
 namespace backend {
 
-typedef LibSerial::SerialStreamBuf::CharSizeEnum CharSize;
+typedef boost::asio::serial_port_base::character_size CharSize;
+
+class CharSizeComparator {
+public:
+	bool operator()(const CharSize & a, const CharSize & b) {
+		return a.value() < b.value();
+	}
+};
 
 class CharSizeUtils {
 public:
@@ -22,7 +29,7 @@ public:
 	static CharSizeUtils * instance(void);
 	const std::map<std::string, CharSize> &
 		getStrCharsize(void) const;
-	const std::map<CharSize, std::string> &
+	const std::map<CharSize, std::string, CharSizeComparator> &
 		getCharsizeStr(void) const;
 	CharSize getCharSize(const std::string & charsize) const;
 
@@ -35,7 +42,7 @@ private:
 private:
 	static CharSizeUtils * instance_;
 	std::map<std::string, CharSize> str_charsize_;
-	std::map<CharSize, std::string> charsize_str_;
+	std::map<CharSize, std::string, CharSizeComparator> charsize_str_;
 
 };
 

@@ -38,16 +38,19 @@ Parity ParityUtils::getParity(const std::string & pari) const {
 	if (iter != str_par_map_.end()) {
 		return iter->second;
 	}
-	return LibSerial::SerialStreamBuf::PARITY_INVALID;
+	return Parity(Parity::none);
 
 }
 
 void ParityUtils::init(void) {
-	str_par_map_.insert(std::make_pair("Even", LibSerial::SerialStreamBuf::PARITY_EVEN));
-	str_par_map_.insert(std::make_pair("Odd", LibSerial::SerialStreamBuf::PARITY_ODD));
-	str_par_map_.insert(std::make_pair("None", LibSerial::SerialStreamBuf::PARITY_NONE));
-	StringParityMap::const_iterator iter = str_par_map_.begin();
-	while (iter != str_par_map_.end()) {
+	str_par_map_.insert(std::make_pair("Even", Parity(Parity::even)));
+	str_par_map_.insert(std::make_pair("Odd", Parity(Parity::odd)));
+	str_par_map_.insert(std::make_pair("None", Parity(Parity::none)));
+
+	typedef StringParityMap::const_iterator CIter;
+	CIter iter = str_par_map_.begin();
+	CIter end = str_par_map_.end();
+	while (iter != end) {
 		par_str_map_.insert(std::make_pair(iter->second, iter->first));
 		++iter;
 	}

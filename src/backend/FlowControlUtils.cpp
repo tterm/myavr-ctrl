@@ -29,7 +29,7 @@ const std::map<std::string, FlowControl> & FlowControlUtils::getStrFlowControl(v
 	return str_flow_controls_;
 }
 
-const std::map<FlowControl, std::string> & FlowControlUtils::getFlowControl(void) const {
+const std::map<FlowControl, std::string, FlowControlComparator> & FlowControlUtils::getFlowControl(void) const {
 	return flow_controls_str_;
 }
 
@@ -38,16 +38,18 @@ FlowControl FlowControlUtils::getFlowControl(const std::string & flowcontrol) co
 	if (iter != str_flow_controls_.end()) {
 		return iter->second;
 	}
-	return LibSerial::SerialStreamBuf::FLOW_CONTROL_INVALID;
+	return FlowControl(FlowControl::none);
 }
 
 void FlowControlUtils::init(void) {
-	str_flow_controls_.insert(std::make_pair("Hardware", LibSerial::SerialStreamBuf::FLOW_CONTROL_HARD));
-	str_flow_controls_.insert(std::make_pair("Software", LibSerial::SerialStreamBuf::FLOW_CONTROL_SOFT));
-	str_flow_controls_.insert(std::make_pair("None", LibSerial::SerialStreamBuf::FLOW_CONTROL_NONE));
+	str_flow_controls_.insert(std::make_pair("Hardware", FlowControl(FlowControl::hardware)));
+	str_flow_controls_.insert(std::make_pair("Software", FlowControl(FlowControl::software)));
+	str_flow_controls_.insert(std::make_pair("None", FlowControl(FlowControl::none)));
 
-	std::map<std::string, FlowControl>::const_iterator iter = str_flow_controls_.begin();
-	while (iter != str_flow_controls_.end()) {
+	typedef std::map<std::string, FlowControl>::const_iterator CIter;
+	CIter iter = str_flow_controls_.begin();
+	CIter end = str_flow_controls_.end();
+	while (iter != end) {
 		flow_controls_str_.insert(std::make_pair(iter->second, iter->first));
 		++iter;
 	}

@@ -11,7 +11,8 @@ namespace backend {
 
 BaudUtils * BaudUtils::instance_ = 0;
 
-BaudUtils::BaudUtils() {
+BaudUtils::BaudUtils()
+{
 	initBaudRates();
 }
 
@@ -30,7 +31,7 @@ BaudUtils::getBaudRates(void) const {
 	return baud_rates_;
 }
 
-const std::map<BaudRate, std::string> &
+const std::map<BaudRate, std::string, BaudComparator> &
 BaudUtils::getBauds(void) const {
 	return baud_str_;
 }
@@ -40,46 +41,46 @@ BaudRate BaudUtils::getBaudRate(const std::string & rate) const {
 	if (iter != baud_rates_.end()) {
 		return iter->second;
 	}
-	return LibSerial::SerialStreamBuf::BAUD_INVALID;
+	return BaudRate(0);
 }
 
 void BaudUtils::initBaudRates(void) {
 	baud_rates_.insert(
-			std::make_pair("50", LibSerial::SerialStreamBuf::BAUD_50));
+			std::make_pair("50", BaudRate(50)));
 	baud_rates_.insert(
-			std::make_pair("75", LibSerial::SerialStreamBuf::BAUD_75));
+			std::make_pair("75", BaudRate(75)));
 	baud_rates_.insert(
-			std::make_pair("110", LibSerial::SerialStreamBuf::BAUD_110));
+			std::make_pair("110", BaudRate(110)));
 	baud_rates_.insert(
-			std::make_pair("134", LibSerial::SerialStreamBuf::BAUD_134));
+			std::make_pair("134", BaudRate(134)));
 	baud_rates_.insert(
-			std::make_pair("150", LibSerial::SerialStreamBuf::BAUD_150));
+			std::make_pair("150", BaudRate(150)));
 	baud_rates_.insert(
-			std::make_pair("200", LibSerial::SerialStreamBuf::BAUD_200));
+			std::make_pair("200", BaudRate(200)));
 	baud_rates_.insert(
-			std::make_pair("300", LibSerial::SerialStreamBuf::BAUD_300));
+			std::make_pair("300", BaudRate(300)));
 	baud_rates_.insert(
-			std::make_pair("600", LibSerial::SerialStreamBuf::BAUD_600));
+			std::make_pair("600", BaudRate(600)));
 	baud_rates_.insert(
-			std::make_pair("1200", LibSerial::SerialStreamBuf::BAUD_1200));
+			std::make_pair("1200", BaudRate(1200)));
 	baud_rates_.insert(
-			std::make_pair("1800", LibSerial::SerialStreamBuf::BAUD_1800));
+			std::make_pair("1800", BaudRate(1800)));
 	baud_rates_.insert(
-			std::make_pair("2400", LibSerial::SerialStreamBuf::BAUD_2400));
+			std::make_pair("2400", BaudRate(2400)));
 	baud_rates_.insert(
-			std::make_pair("4800", LibSerial::SerialStreamBuf::BAUD_4800));
+			std::make_pair("4800", BaudRate(4800)));
 	baud_rates_.insert(
-			std::make_pair("9600", LibSerial::SerialStreamBuf::BAUD_9600));
+			std::make_pair("9600", BaudRate(9600)));
 	baud_rates_.insert(
-			std::make_pair("19200", LibSerial::SerialStreamBuf::BAUD_19200));
+			std::make_pair("19200", BaudRate(19200)));
 	baud_rates_.insert(
-			std::make_pair("38400", LibSerial::SerialStreamBuf::BAUD_38400));
+			std::make_pair("38400", BaudRate(38400)));
 	baud_rates_.insert(
-			std::make_pair("57600", LibSerial::SerialStreamBuf::BAUD_57600));
+			std::make_pair("57600", BaudRate(57600)));
 	baud_rates_.insert(
-			std::make_pair("115200", LibSerial::SerialStreamBuf::BAUD_115200));
+			std::make_pair("115200", BaudRate(115200)));
 
-	std::map<std::string, BaudRate>::const_iterator iter = baud_rates_.begin();
+	std::map<std::string, BaudRate, BaudComparator>::const_iterator iter = baud_rates_.begin();
 	while (iter != baud_rates_.end()) {
 		baud_str_.insert(std::make_pair(iter->second, iter->first));
 		++iter;

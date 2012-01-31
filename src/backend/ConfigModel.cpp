@@ -46,11 +46,11 @@ std::vector<std::string> ConfigModel::getConfigNames(void) const {
 }
 
 void ConfigModel::init(void) {
-	PortConfig mk2(LibSerial::SerialStreamBuf::BAUD_19200,
-			LibSerial::SerialStreamBuf::CHAR_SIZE_8,
-			LibSerial::SerialStreamBuf::FLOW_CONTROL_NONE,
-			LibSerial::SerialStreamBuf::PARITY_NONE,
-			1);
+	PortConfig mk2(BaudRate(19200),
+			CharSize(8),
+			FlowControl(FlowControl::none),
+			Parity(Parity::none),
+			StopBits(StopBits::one));
 	configs_["myAVRMKII"] = mk2;
 }
 

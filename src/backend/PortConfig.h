@@ -10,66 +10,67 @@
 
 #include <iosfwd>
 #include <string>
-#include <SerialStreamBuf.h>
+#include <boost/asio.hpp>
 
 #include <log4cxx/logger.h>
 
 namespace backend {
 
-typedef LibSerial::SerialStreamBuf::BaudRateEnum BaudRateEnum;
-typedef LibSerial::SerialStreamBuf::CharSizeEnum CharSizeEnum;
-typedef LibSerial::SerialStreamBuf::FlowControlEnum FlowControlEnum;
-typedef LibSerial::SerialStreamBuf::ParityEnum ParityEnum;
+typedef boost::asio::serial_port_base::baud_rate BaudRate;
+typedef boost::asio::serial_port_base::character_size CharSize;
+typedef boost::asio::serial_port_base::flow_control FlowControl;
+typedef boost::asio::serial_port_base::parity Parity;
+typedef boost::asio::serial_port_base::stop_bits StopBits;
 
 class PortConfig {
 public:
 	PortConfig() {}
-	PortConfig(BaudRateEnum baud,
-			CharSizeEnum char_size,
-			FlowControlEnum flow_ctrl,
-			ParityEnum parity,
-			unsigned int stopbit);
+	PortConfig(BaudRate baud,
+			CharSize char_size,
+			FlowControl flow_ctrl,
+			Parity parity,
+			StopBits stopbit);
 	PortConfig(const PortConfig & to_copy);
 	~PortConfig();
 	PortConfig & operator=(const PortConfig & to_assign);
 
-	BaudRateEnum getBaudRate(void) const {
+	BaudRate getBaudRate(void) const {
 		return baud_;
 	}
 
-	void setBaudRate(BaudRateEnum baud) {
+	void setBaudRate(BaudRate baud) {
 		baud_ = baud;
 	}
 
-	CharSizeEnum getCharSize(void) const {
+	CharSize getCharSize(void) const {
 		return char_size_;
 	}
 
-	void setCharSize(CharSizeEnum char_size) {
+	void setCharSize(CharSize char_size) {
 		char_size_ = char_size;
 	}
 
-	FlowControlEnum getFlowControl(void) const {
+	FlowControl getFlowControl(void) const {
 		return flow_ctrl_;
 	}
 
-	void setFlowControl(FlowControlEnum flow_ctrl) {
+	void setFlowControl(FlowControl flow_ctrl) {
 		flow_ctrl_ = flow_ctrl;
 	}
 
-	ParityEnum getParity(void) const {
+	Parity getParity(void) const {
 		return parity_;
 	}
 
-	void setParity(ParityEnum parity) {
+	void setParity(Parity parity) {
 		parity_ = parity;
 	}
 
-	unsigned int getStopBits(void) const {
+	StopBits getStopBits(void) const {
 		return stopbit_;
 	}
 
-	void setStopBits(unsigned int stop_bits) {
+	void setStopBits(StopBits stop_bits) {
 		stopbit_ = stop_bits;
 	}
 
@@ -93,11 +94,11 @@ private:
 	void copy_values(const PortConfig & to_copy);
 
 private:
-	BaudRateEnum baud_;
-	CharSizeEnum char_size_;
-	FlowControlEnum flow_ctrl_;
-	ParityEnum parity_;
-	unsigned int stopbit_;
+	BaudRate baud_;
+	CharSize char_size_;
+	FlowControl flow_ctrl_;
+	Parity parity_;
+	StopBits stopbit_;
 	std::string device_;
 	std::string mode_;
 	static log4cxx::LoggerPtr cdtor;

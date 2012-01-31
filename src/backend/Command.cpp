@@ -6,13 +6,12 @@
  */
 
 #include "Command.h"
-#include "SerialStream.h"
 #include "PortConfig.h"
 #include "ModeUtils.h"
 #include <iostream>
+#include <boost/asio.hpp>
 
 using namespace log4cxx;
-
 
 namespace backend {
 
@@ -27,55 +26,49 @@ Command::~Command() {
 	LOG4CXX_TRACE(cdtor, "~Command()");
 }
 
-void Command::execute(const PortConfig & config) throw(DeviceNotFoundException) {
-	LibSerial::SerialStream stream;
-	stream.Open(config.getDevice());
-	if (!stream.good()) {
-		LOG4CXX_ERROR(logger, "Error opening device " + config.getDevice());
+void Command::execute(const PortConfig & config)
+		throw (DeviceNotFoundException) {
+	boost::asio::io_service service;
+	boost::asio::serial_port port(service);
+	try {
+		port.open(config.getDevice());
+	} catch (boost::system::system_error & ec) {
+		LOG4CXX_ERROR(logger, "Error opening device " + config.getDevice() + " " + ec.what());
 		throw DeviceNotFoundException(config);
 	}
-	stream.SetBaudRate(config.getBaudRate());
-	stream.SetCharSize(config.getCharSize());
-	stream.SetNumOfStopBits(config.getStopBits());
-	stream.SetFlowControl(config.getFlowControl());
-	stream.SetParity(config.getParity());
-	//stream.SetVMin(0);
-	//	stream.SetVTime(100);
+	port.set_option(config.getBaudRate());
+	port.set_option(config.getCharSize());
+	port.set_option(config.getStopBits());
+	port.set_option(config.getFlowControl());
+	port.set_option(config.getParity());
 	std::string com(ModeUtils::request_prefix);
 	com.push_back(ModeUtils::instance()->getMode(config.getMode()));
 	LOG4CXX_TRACE(logger, "Write stream to device");
-	stream.write(com.c_str(), com.length());
+	try {
+		port.write_some(boost::asio::buffer(com.c_str(), com.length()));
+	} catch (boost::system::system_error & ex) {
+		LOG4CXX_ERROR(logger, ex.what());
+	}
 	LOG4CXX_TRACE(logger, "Finished writing stream to device");
-	if (!stream.good()) {
-		LOG4CXX_ERROR(logger, "Error writing to device");
-		return;
-	}
-	stream.clear();
-	std::string resp(ModeUtils::response_prefix);
-	resp.push_back(ModeUtils::instance()->getMode(config.getMode()));
-	resp.push_back('\r');
-	resp.push_back('\0');
+
 	char c;
-	while (c != '\n') {
-		stream.get(c);
-		LOG4CXX_TRACE(logger, "Value: " << std::hex << (int)c);
-	}
-	/*char buff[100];
-	std::cout << "get" << std::endl;
-	stream.get(buff, 100, '\n');
-	std::cout << "got it" << std::endl;
-	for (int i = 0; i < 10; ++i) {
-		if (buff[i] == '\r') {
-			std::cerr << "Zeilenumbruch" << std::endl;
-			continue;
-		}
-		if (buff[i] == '\0') {
-			std::cerr << "here " << std::endl;
+	std::string result;
+	bool end = false;
+	while(!end) {
+		port.read_some(boost::asio::buffer(&c, 1));
+		switch (c) {
+		case '\r':
+			break;
+		case '\n':
+			end = true;
+			break;
+		default:
+			result += c;
+			LOG4CXX_TRACE(logger, std::hex << (unsigned int)c);
 			break;
 		}
-		std::cerr << "###" << std::hex << (int) buff[i] << "###" << std::endl;
-	}*/
-	std::cerr << "End " << std::endl;
+	}
+	LOG4CXX_TRACE(logger, "End");
 }
 
 }

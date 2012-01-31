@@ -10,13 +10,21 @@
 
 #include <map>
 #include <string>
-#include <SerialStreamBuf.h>
+#include <boost/asio.hpp>
 
 namespace backend {
 
-typedef LibSerial::SerialStreamBuf::ParityEnum Parity;
+typedef boost::asio::serial_port_base::parity Parity;
+
+class ParityComparator {
+public:
+	bool operator()(const Parity & a, const Parity & b) {
+		return a.value() < b.value();
+	}
+};
+
 typedef std::map<std::string, Parity> StringParityMap;
-typedef std::map<Parity, std::string> ParityStringMap;
+typedef std::map<Parity, std::string, ParityComparator> ParityStringMap;
 
 class ParityUtils {
 public:

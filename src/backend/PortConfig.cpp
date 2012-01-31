@@ -17,11 +17,11 @@ namespace backend {
 LoggerPtr PortConfig::cdtor(Logger::getLogger("lifecycle"));
 LoggerPtr PortConfig::logger(Logger::getLogger("backend.PortConfig"));
 
-PortConfig::PortConfig(BaudRateEnum baud,
-		CharSizeEnum char_size,
-		FlowControlEnum flow_ctrl,
-		ParityEnum parity,
-		unsigned int stopbit)
+PortConfig::PortConfig(BaudRate baud,
+		CharSize char_size,
+		FlowControl flow_ctrl,
+		Parity parity,
+		StopBits stopbit)
 :baud_(baud), char_size_(char_size),
  flow_ctrl_(flow_ctrl), parity_(parity),
  stopbit_(stopbit)
@@ -54,7 +54,7 @@ void PortConfig::copy_values(const PortConfig & to_copy) {
 }
 
 std::ostream & operator<<(std::ostream & os, const PortConfig & pc) {
-	os << "Baud " << pc.getBaudRate();
+	os << pc.getBaudRate().value();
 	return os;
 }
 

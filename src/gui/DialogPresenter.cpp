@@ -60,7 +60,7 @@ QStringList DialogPresenter::getBaudRates(void) {
 	BaudMapIter end = backend::BaudUtils::instance()->getBauds().end();
 	for (unsigned int index = 0; iter != end; ++iter, ++index) {
 		result.insert(index, QString::fromStdString(iter->second));
-		if (iter->first == current_config_->getBaudRate()) {
+		if (iter->first.value() == current_config_->getBaudRate().value()) {
 			current_index_[baud_index] = index;
 		}
 	}
@@ -81,7 +81,7 @@ QStringList DialogPresenter::getCharSizes(void) {
 			backend::CharSizeUtils::instance()->getCharsizeStr().end();
 	for (unsigned int index = 0; iter != end; ++iter, ++index) {
 		result.insert(index, QString::fromStdString(iter->second));
-		if (iter->first == current_config_->getCharSize()) {
+		if (iter->first.value() == current_config_->getCharSize().value()) {
 			current_index_[char_size_index] = index;
 		}
 	}
@@ -102,7 +102,7 @@ QStringList DialogPresenter::getFlowControls(void) {
 			backend::FlowControlUtils::instance()->getFlowControl().end();
 	for (unsigned int index = 0; iter != end; ++iter, ++index) {
 		result.insert(index, QString::fromStdString(iter->second));
-		if (iter->first == current_config_->getFlowControl()) {
+		if (iter->first.value() == current_config_->getFlowControl().value()) {
 			current_index_[flow_ctrl_index] = index;
 		}
 	}
@@ -121,7 +121,7 @@ QStringList DialogPresenter::getParities(void) {
 	ParityIter end = backend::ParityUtils::instance()->getParityStrMap().end();
 	for (unsigned int index = 0; iter != end; ++iter, ++index) {
 		result.insert(index, QString::fromStdString(iter->second));
-		if (iter->first == current_config_->getParity()) {
+		if (iter->first.value() == current_config_->getParity().value()) {
 			current_index_[parity_index] = index;
 		}
 	}
@@ -136,7 +136,7 @@ QStringList DialogPresenter::getStopBits(void) {
 	QStringList result;
 	result.insert(0, "1");
 	result.insert(1, "2");
-	if (current_config_->getStopBits() == 1) {
+	if (current_config_->getStopBits().value() == boost::asio::serial_port_base::stop_bits::one) {
 		current_index_[stopbit_index] = 0;
 	} else {
 		current_index_[stopbit_index] = 1;
@@ -160,9 +160,9 @@ void DialogPresenter::onOK(void) {
 					dialog_->getFlowCtrlValue().toStdString()));
 	current_config_->setParity(backend::ParityUtils::instance()->getParity(dialog_->getParityValue().toStdString()));
 	if (dialog_->getStopBitValue().compare("1") == 0) {
-		current_config_->setStopBits(1);
+		current_config_->setStopBits(boost::asio::serial_port_base::stop_bits(boost::asio::serial_port_base::stop_bits::one));
 	} else {
-		current_config_->setStopBits(2);
+		current_config_->setStopBits(boost::asio::serial_port_base::stop_bits(boost::asio::serial_port_base::stop_bits::two));
 	}
 	dialog_->done(0);
 }

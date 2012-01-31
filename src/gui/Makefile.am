@@ -1,12 +1,11 @@
 AM_CPPFLAGS = -Wall -ansi -Wextra \
 			  -I /usr/include/qt4/ \
-              -I /opt/libserial-0.5.2/include \
               -I /opt/apache-log4cxx-0.10.0/include \
               -I$(top_srcdir)/src
               
 
 
-AM_LDFLAGS = -lQtCore -lQtGui -L/opt/libserial-0.5.2/lib/ -lserial \
+AM_LDFLAGS = -lQtCore -lQtGui -lboost_system \
              -lapr-1 -laprutil-1
 
 bin_PROGRAMS = myavr-ctrl

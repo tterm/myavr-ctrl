@@ -29,7 +29,7 @@ const std::map<std::string, CharSize> & CharSizeUtils::getStrCharsize(void) cons
 	return str_charsize_;
 }
 
-const std::map<CharSize, std::string> & CharSizeUtils::getCharsizeStr(void) const {
+const std::map<CharSize, std::string, CharSizeComparator> & CharSizeUtils::getCharsizeStr(void) const {
 	return charsize_str_;
 }
 
@@ -38,17 +38,19 @@ CharSize CharSizeUtils::getCharSize(const std::string & charsize) const {
 	if (iter != str_charsize_.end()) {
 		return iter->second;
 	}
-	return LibSerial::SerialStreamBuf::CHAR_SIZE_INVALID;
+	return CharSize(0);
 }
 
 void CharSizeUtils::init(void) {
-	str_charsize_.insert(std::make_pair("5", LibSerial::SerialStreamBuf::CHAR_SIZE_5));
-	str_charsize_.insert(std::make_pair("6", LibSerial::SerialStreamBuf::CHAR_SIZE_6));
-	str_charsize_.insert(std::make_pair("7", LibSerial::SerialStreamBuf::CHAR_SIZE_7));
-	str_charsize_.insert(std::make_pair("8", LibSerial::SerialStreamBuf::CHAR_SIZE_8));
+	str_charsize_.insert(std::make_pair("5", CharSize(5)));
+	str_charsize_.insert(std::make_pair("6", CharSize(6)));
+	str_charsize_.insert(std::make_pair("7", CharSize(7)));
+	str_charsize_.insert(std::make_pair("8", CharSize(8)));
 
-	std::map<std::string, CharSize>::const_iterator iter = str_charsize_.begin();
-	while (iter != str_charsize_.end()) {
+	typedef std::map<std::string, CharSize>::const_iterator Iter;
+	Iter iter = str_charsize_.begin();
+	Iter end = str_charsize_.end();
+	while (iter != end) {
 		charsize_str_.insert(std::make_pair(iter->second, iter->first));
 		++iter;
 	}
