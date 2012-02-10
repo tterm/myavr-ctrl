@@ -83,6 +83,7 @@ void MainWindow::setupUI(void) {
 	++gridrow;
 	device_ = new QLineEdit(this);
 	layout->addWidget(device_, gridrow, 1);
+	device_->setText("/dev/ttyUSB0");
 	QLabel * device_label = new QLabel(tr("Device"), this);
 	layout->addWidget(device_label, gridrow, 0);
 	++gridrow;
