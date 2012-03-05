@@ -18,6 +18,7 @@ int main(int argc, char ** argv) {
 	LoggerPtr logger(Logger::getLogger("gui.main"));
 	DOMConfigurator::configure("../conf/log4cxx.xml");
 	LOG4CXX_INFO(logger, "Start myavr control gui");
+	QApplication::setStyle("plastique");
 	QApplication app(argc, argv);
 	backend::ConfigModel * model = new backend::ConfigModel;
 	MainWindowPresenter mwp(model);
