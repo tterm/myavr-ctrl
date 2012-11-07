@@ -8,14 +8,14 @@ AC_DEFUN([QT_CHECKS],
 	AC_MSG_NOTICE([Searching for qt libs and programs])
 	
     AC_ARG_ENABLE([qtgui],
-            [AS_HELP_STRING([--enable-qtgui], [enable experimental support for qt based chap_macpan])]
+            [AS_HELP_STRING([--enable-qtgui], [enable experimental support for qt])]
             [],
 			[qtgui=true])
 	AM_CONDITIONAL([QTGUI_ENABLED], [test x$qtgui = xtrue])
 
 	AS_IF([test "x$qtgui" = xtrue],
 		[AC_ARG_WITH(qt,
-        	[  --with-qt[=DIR]        use qt4 in DIR (default=/[opt|tools]/qt-4.6.0-1)],
+        	[  --with-qt[=DIR]        use qt4 in DIR (default=/usr)],
         		[
             		if test -d "$withval"; then
                 		QT_ROOT="$withval"
@@ -26,13 +26,6 @@ AC_DEFUN([QT_CHECKS],
             		fi
         		],
         	[
-            if test x$QT_ROOT = x; then
-                if test -e "/opt/qt-4.6.0-1"; then
-                    QT_ROOT="/opt/qt-4.6.0-1"
-                else
-                    QT_ROOT="/tools/qt-4.6.0-1"
-                fi
-            fi
             CPPFLAGS="$CPPFLAGS -I$QT_ROOT/include -I$QT_ROOT/include/QtCore -I$QT_ROOT/include/QtGui"
             LDFLAGS="$LDFLAGS -Wl,--rpath -Wl,$QT_ROOT/lib -L$QT_ROOT/lib"
             QT_MOC="$QT_ROOT/bin/moc"
