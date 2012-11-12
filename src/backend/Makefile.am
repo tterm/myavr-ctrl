@@ -3,8 +3,7 @@ noinst_LIBRARIES = libbackend.a
 
 #AM_LDFLAGS = -lboost_system
 
-AM_CPPFLAGS = -Wall -ansi -Wextra \
-              -I /opt/apache-log4cxx-0.10.0/include
+AM_CPPFLAGS = -Wall -ansi -Wextra 
 
 
 libbackend_a_SOURCES = BaudUtils.cpp \
@@ -18,4 +17,3 @@ libbackend_a_SOURCES = BaudUtils.cpp \
                        PortConfig.cpp \
                        Command.cpp
                        
-libbackend_a_LIBDADD = /opt/apache-log4cxx-0.10.0/lib/liblog4cxx.a
