@@ -11,6 +11,8 @@
 #include "DeviceNotFoundException.h"
 #include "PortConfig.h"
 #include <log4cxx/logger.h>
+#include <boost/asio.hpp>
+
 
 namespace backend {
 
@@ -18,6 +20,7 @@ class Command {
 public:
 	Command();
 	~Command();
+	//void readHandler(const boost::system::error_code& error, std::size_t bytes_transferred)
 	void execute(const PortConfig & config) throw(DeviceNotFoundException);
 private:
 	static log4cxx::LoggerPtr cdtor;

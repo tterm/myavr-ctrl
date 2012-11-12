@@ -71,4 +71,12 @@ void Command::execute(const PortConfig & config)
 	LOG4CXX_TRACE(logger, "End");
 }
 
+/*void Command::readHandler(const boost::system::error_code & error, std::size_t bytes_transfered)
+{
+	if (!error)
+	{
+		LOG4CXX_TRACE(logger, "read handler success");
+	}
+}*/
+
 }

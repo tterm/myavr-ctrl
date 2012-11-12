@@ -95,7 +95,7 @@ void MainWindow::setupUI(void) {
 	box->addWidget(push_it_button_);
 	QStatusBar * sb = new QStatusBar(this);
 	setStatusBar(sb);
-
+	createMenu();
 }
 
 QString MainWindow::getConfigValue(void) const {
@@ -125,6 +125,17 @@ void MainWindow::on_push_button_clicked(void) {
 
 void MainWindow::on_edit_config_clicked(void) {
 	presenter_->editConfig(config_box_->currentText());
+}
+
+void MainWindow::createMenu(void) {
+	QMenuBar * menubar = menuBar();
+	QMenu * file_menu = new QMenu(tr("&File"),menubar);
+	QAction * exitAct = new QAction(tr("E&xit"), this);
+	exitAct->setShortcuts(QKeySequence::Quit);
+	exitAct->setStatusTip(tr("Exit the application"));
+	connect(exitAct, SIGNAL(triggered()), this, SLOT(close()));
+	file_menu->addAction(exitAct);
+	menubar->addMenu(file_menu);
 }
 
 }

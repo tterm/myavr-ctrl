@@ -38,6 +38,7 @@ public slots:
 
 private:
 	void setupUI(void);
+	void createMenu(void);
 
 private:
 	QComboBox * mode_box_;
