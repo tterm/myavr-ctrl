@@ -32,11 +32,11 @@ ConfigDialog::ConfigDialog(DialogPresenter * presenter, QWidget * parent) :
 			cancel_button_(0), presenter_(presenter) {
 	setupUi();
 	metaObject()->connectSlotsByName(this);
-	LOG4CXX_TRACE(cdtor, "ConfigDialog()");
+	LOG4CXX_TRACE(cdtor, "ConfigDialog()")
 }
 
 ConfigDialog::~ConfigDialog() {
-	LOG4CXX_TRACE(cdtor, "~ConfigDialog()");
+	LOG4CXX_TRACE(cdtor, "~ConfigDialog()")
 }
 
 void ConfigDialog::setupUi(void) {

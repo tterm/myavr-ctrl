@@ -26,16 +26,16 @@ PortConfig::PortConfig(BaudRate baud,
  flow_ctrl_(flow_ctrl), parity_(parity),
  stopbit_(stopbit)
 {
-	LOG4CXX_TRACE(cdtor, "PortConfig()");
+	LOG4CXX_TRACE(cdtor, "PortConfig()")
 }
 
 PortConfig::PortConfig(const PortConfig & to_copy) {
 	copy_values(to_copy);
-	LOG4CXX_TRACE(cdtor, "PortConfig(const PortConfig &)");
+	LOG4CXX_TRACE(cdtor, "PortConfig(const PortConfig &)")
 }
 
 PortConfig::~PortConfig() {
-	LOG4CXX_TRACE(cdtor, "~PortConfig()");
+	LOG4CXX_TRACE(cdtor, "~PortConfig()")
 }
 
 PortConfig & PortConfig::operator =(const PortConfig & to_assign) {

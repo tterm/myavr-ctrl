@@ -20,11 +20,11 @@ ModeUtils * ModeUtils::instance_ = 0;
 
 ModeUtils::ModeUtils() {
 	init();
-	LOG4CXX_TRACE(cdtor, "ModeUtils()");
+	LOG4CXX_TRACE(cdtor, "ModeUtils()")
 }
 
 ModeUtils::~ModeUtils() {
-	LOG4CXX_TRACE(cdtor, "~ModeUtils()");
+	LOG4CXX_TRACE(cdtor, "~ModeUtils()")
 }
 
 ModeUtils * ModeUtils::instance(void) {

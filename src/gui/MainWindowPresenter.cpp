@@ -28,7 +28,7 @@ MainWindowPresenter::MainWindowPresenter(backend::ConfigModel * model,
 	QObject(parent), model_(model) {
 	mainWindow_ = new MainWindow(this);
 	dialogPresenter_ = new DialogPresenter(model_, this);
-	LOG4CXX_TRACE(cdtor, "MainWindowPresenter()");
+	LOG4CXX_TRACE(cdtor, "MainWindowPresenter()")
 }
 
 MainWindowPresenter::~MainWindowPresenter() {
@@ -38,7 +38,7 @@ MainWindowPresenter::~MainWindowPresenter() {
 	}
 	delete mainWindow_;
 	mainWindow_ = 0;
-	LOG4CXX_TRACE(cdtor, "~MainWindowPresenter()");
+	LOG4CXX_TRACE(cdtor, "~MainWindowPresenter()")
 }
 
 void MainWindowPresenter::start(void) {

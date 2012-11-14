@@ -48,11 +48,11 @@ MainWindow::MainWindow(MainWindowPresenter * presenter, QWidget * parent) :
 {
 	setupUI();
 	metaObject()->connectSlotsByName(this);
-	LOG4CXX_TRACE(cdtor, "MainWindow()");
+	LOG4CXX_TRACE(cdtor, "MainWindow()")
 }
 
 MainWindow::~MainWindow() {
-	LOG4CXX_TRACE(cdtor, "~MainWindow()");
+	LOG4CXX_TRACE(cdtor, "~MainWindow()")
 }
 
 void MainWindow::setupUI(void) {

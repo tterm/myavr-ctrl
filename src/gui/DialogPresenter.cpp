@@ -33,11 +33,11 @@ LoggerPtr DialogPresenter::logger(Logger::getLogger("gui.DialogPresenter"));
 
 DialogPresenter::DialogPresenter(backend::ConfigModel * model, QObject * parent) :
 	QObject(parent), model_(model), current_config_(0), dialog_(0) {
-	LOG4CXX_TRACE(cdtor,"DialogPresenter()");
+	LOG4CXX_TRACE(cdtor,"DialogPresenter()")
 }
 
 DialogPresenter::~DialogPresenter() {
-	LOG4CXX_TRACE(cdtor,"~DialogPresenter()");
+	LOG4CXX_TRACE(cdtor,"~DialogPresenter()")
 }
 
 void DialogPresenter::start(const QString & config_name)
