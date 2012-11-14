@@ -4,7 +4,7 @@ AM_CPPFLAGS = -Wall -ansi -Wextra \
               
 
 
-AM_LDFLAGS = -lQtCore -lQtGui -lboost_system -lboost_filesystem\
+AM_LDFLAGS = -lQtCore -lQtGui -lboost_system \
              -lapr-1 -laprutil-1 -llog4cxx
 
 bin_PROGRAMS = myavr-ctrl
