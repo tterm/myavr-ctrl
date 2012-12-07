@@ -5,6 +5,10 @@
  *      Author: tterm
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "ConfigDialog.h"
 #include "DialogPresenter.h"
 

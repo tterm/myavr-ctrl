@@ -5,6 +5,10 @@
  *      Author: tterm
  */
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "ModeUtils.h"
 
 using namespace log4cxx;
