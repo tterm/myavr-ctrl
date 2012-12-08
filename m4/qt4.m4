@@ -19,14 +19,14 @@ AC_DEFUN([QT_CHECKS],
         		[
             		if test -d "$withval"; then
                 		QT_ROOT="$withval"
-                		CPPFLAGS="$CPPFLAGS -I$QT_ROOT/include -I$QT_ROOT/include/QtCore -I$QT_ROOT/include/QtGui"
+                		CPPFLAGS="$CPPFLAGS -I$QT_ROOT/include/qt4"
                 		LDFLAGS="$LDFLAGS -Wl,--rpath -Wl,$QT_ROOT/lib -L$QT_ROOT/lib"
                 		QT_MOC="$QT_ROOT/bin/moc"
                 		QT_UIC="QT_ROOT/bin/uic"
             		fi
         		],
         	[
-            CPPFLAGS="$CPPFLAGS -I$QT_ROOT/include -I$QT_ROOT/include/QtCore -I$QT_ROOT/include/QtGui"
+            CPPFLAGS="$CPPFLAGS -I$QT_ROOT/include/qt4"
             LDFLAGS="$LDFLAGS -Wl,--rpath -Wl,$QT_ROOT/lib -L$QT_ROOT/lib"
             QT_MOC="$QT_ROOT/bin/moc"
             QT_UIC="QT_ROOT/bin/uic"
@@ -35,7 +35,7 @@ AC_DEFUN([QT_CHECKS],
         	[
             	AC_MSG_NOTICE([Error linking with libQtCore.])
             	AC_MSG_NOTICE([Make sure Qt4 is installed and can be found by the linker.])
-            	AC_MSG_NOTICE([Try using --with-qt=/path/to/your/qt4/installation])
+            	AC_MSG_NOTICE([Try using --with-qt=/path/to/your/installation])
             	AC_MSG_NOTICE([or let the environment variable QT_ROOT point to your qt4 installation.])
             	AC_MSG_ERROR([abort])
         	])
@@ -44,10 +44,12 @@ AC_DEFUN([QT_CHECKS],
         	[
             	AC_MSG_NOTICE([Error linking with libQtGui.])
             	AC_MSG_NOTICE([Make sure Qt4 is installed and can be found by the linker.])
-            	AC_MSG_NOTICE([Try using --with-qt=/path/to/your/qt4/installation])
+            	AC_MSG_NOTICE([Try using --with-qt=/path/to/your/installation])
             	AC_MSG_NOTICE([or let the environment variable QT_ROOT point to your qt4 installation.])
             	AC_MSG_ERROR([abort])
         	])
+
+        AC_CHECK_HEADER([QtCore/QObject],, [AC_MSG_ERROR([abort])])
         
     	# Find qt related tools which are needed to build qt apps 
     	AC_CHECK_PROG(QMAKE, qmake, [$QT_ROOT/bin/qmake],

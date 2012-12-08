@@ -1,14 +1,10 @@
-AM_CPPFLAGS = -Wall -ansi -Wextra \
-			  -I /usr/include/qt4/ \
-              -I$(top_srcdir)/src
-              
+AM_CPPFLAGS = -I$(top_srcdir)/src
 
 
-AM_LDFLAGS = -lQtCore -lQtGui -lboost_system \
-             -lapr-1 -laprutil-1 -llog4cxx
+AM_LDFLAGS = -lapr-1 -laprutil-1
 
 bin_PROGRAMS = myavr-ctrl
-myavr_ctrl_SOURCES = myavr-ctrl.cpp \ 
+myavr_ctrl_SOURCES = myavr-ctrl.cpp \
 				     moc_MainWindow.cpp MainWindow.cpp \
 					 moc_ConfigDialog.cpp ConfigDialog.cpp \
                      moc_MainWindowPresenter.cpp MainWindowPresenter.cpp \
