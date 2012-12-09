@@ -1,3 +1,7 @@
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "MainWindowPresenter.h"
 #include "backend/PortConfig.h"
 #include <backend/ConfigModel.h>
