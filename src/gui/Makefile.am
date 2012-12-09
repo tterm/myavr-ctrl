@@ -10,6 +10,11 @@ myavr_ctrl_SOURCES = myavr-ctrl.cpp \
                      moc_MainWindowPresenter.cpp MainWindowPresenter.cpp \
                      moc_DialogPresenter.cpp DialogPresenter.cpp
 
+include_HEADERS = ConfigDialog.h \
+                  DialogPresenter.h \
+                  MainWindow.h \
+                  MainWindowPresenter.h
+
 myavr_ctrl_LDADD = ../backend/libbackend.a 
                      
 CLEANFILES = moc_MainWindow.cpp \

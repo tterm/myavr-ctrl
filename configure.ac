@@ -19,8 +19,7 @@ BOOST_CHECKS
 LOG4CXX_CHECKS
 
 # Checks for headers
-AC_CHECK_HEADERS([ctype.h \
-                  stdbool.h],,
+AC_CHECK_HEADERS([ctype.h],,
                   [AC_MSG_ERROR([Some header wasn't found.])], 
                   [AC_INCLUDES_DEFAULT])
 

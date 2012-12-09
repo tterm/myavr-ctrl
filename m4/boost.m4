@@ -5,7 +5,6 @@
 
 AC_DEFUN([BOOST_CHECKS],
 [
-	AC_MSG_NOTICE([Searching for boost libs and programs])
 	AC_CHECK_LIB([boost_system], [main], [],
 		[
 			AC_MSG_NOTICE([Error linking with libboost_system.])
