@@ -6,6 +6,7 @@ AM_INIT_AUTOMAKE([foreign -Wall -Wno-portability tar-pax])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AC_CONFIG_HEADERS([config.h])
 
+AC_DEFINE_UNQUOTED([PREFIX], [$prefix], [Define the install prefix])
 AC_CANONICAL_HOST
 
 AC_PROG_CXX
