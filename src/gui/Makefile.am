@@ -12,7 +12,10 @@ myavr_ctrl_SOURCES = myavr-ctrl.cpp \
 
 myavr_ctrl_LDADD = ../backend/libbackend.a 
                      
-CLEANFILES = $(filter moc_%.cpp,$(myavr_ctrl_SOURCES))
+CLEANFILES = moc_MainWindow.cpp \
+             moc_ConfigDialog.cpp \
+             moc_MainWindowPresenter.cpp \
+             moc_DialogPresenter.cpp
 
 moc_%.cpp: %.h
 	moc $< -I/usr/include/qt4 -I. -o $@
