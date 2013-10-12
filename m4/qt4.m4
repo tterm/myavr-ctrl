@@ -13,6 +13,7 @@ AC_DEFUN([QT_CHECKS],
       [QT4_CFLAGS='-I/usr/include/qt4'])
     AC_SUBST([QT4_CFLAGS])
     CXXFLAGS="$CXXFLAGS $QT4_CFLAGS"
+    CXXCPP="$CXXCPP $QT4_CFLAGS"
 	
     AC_CHECK_LIB([QtCore], [main], [], 
        	[
