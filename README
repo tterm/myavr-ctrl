@@ -6,6 +6,8 @@
 
   myavr-ctrl is a small graphical qt based application to switch between the 
   different modes of the myavr MK2 programmer running under Linux. 
+  Also have a look on the wiki https://github.com/tterm/myavr-ctrl/wiki for 
+  more information.
 
   System Requirements
   -------------------
