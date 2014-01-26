@@ -1,0 +1,30 @@
+#ignore object files and archives
+*.[oa]
+
+src/gui/myavr-ctrl
+
+#ignore moc generated files
+moc_*.cpp
+
+#generated makefiles
+Makefile
+Makefile.in
+aclocal.m4
+autom4te.cache
+config.h
+config.h.in*
+config.log
+config.status
+configure
+depcomp
+.deps
+stamp-h1
+missing
+install-sh
+INSTALL
+COPYING
+
+#eclipse related
+.cproject
+.project
+
