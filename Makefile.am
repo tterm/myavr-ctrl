@@ -12,3 +12,4 @@ install-data-hook:
     
 uninstall-hook:
 	rm -rf $(log_dir)
+	rm $(conf_dir)/log4cxx.xml
