@@ -7,12 +7,14 @@ libbackend_a_SOURCES = BaudUtils.cpp \
                        CharSizeUtils.cpp \
                        ConfigModel.cpp \
                        ConfigNotFoundException.cpp \
-                       DeviceNotFoundException.cpp\
+                       DeviceNotFoundException.cpp \
+                       SerialPortCommunicationError.cpp \
                        FlowControlUtils.cpp \
                        ModeUtils.cpp \
                        ParityUtils.cpp \
                        PortConfig.cpp \
-                       Command.cpp
+                       Command.cpp \
+                       SerialPort.cpp
 
 include_HEADERS = BaudUtils.h \
                   ConfigModel.h \
@@ -23,4 +25,6 @@ include_HEADERS = BaudUtils.h \
                   ModeUtils.h \
                   Command.h \
                   DeviceNotFoundException.h \
-                  ParityUtils.h
+                  SerialPortCommunicationError.h \
+                  ParityUtils.h \
+                  SerialPort.h

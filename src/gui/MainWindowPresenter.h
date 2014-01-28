@@ -14,6 +14,7 @@
 #include <log4cxx/logger.h>
 
 #include <backend/DeviceNotFoundException.h>
+#include <backend/SerialPortCommunicationError.h>
 
 namespace backend {
 class ConfigModel;
@@ -24,23 +25,24 @@ namespace gui {
 class MainWindow;
 class DialogPresenter;
 
-class MainWindowPresenter : public QObject {
-	Q_OBJECT
+class MainWindowPresenter: public QObject {
+Q_OBJECT
 public:
-	MainWindowPresenter(backend::ConfigModel * model, QObject * parent = 0);
-	virtual ~MainWindowPresenter();
-	void start(void);
-	void editConfig(const QString & name);
-	QStringList getConfigNames(void) const;
-	QStringList getModes(void) const;
-	void onPush(void) throw(backend::DeviceNotFoundException);
+    MainWindowPresenter(backend::ConfigModel * model, QObject * parent = 0);
+    virtual ~MainWindowPresenter();
+    void start(void);
+    void editConfig(const QString & name);
+    QStringList getConfigNames(void) const;
+    QStringList getModes(void) const;
+    void onPush(void) throw (backend::DeviceNotFoundException,
+            backend::SerialPortCommunicationError);
 
 private:
-	backend::ConfigModel * model_;
-	MainWindow * mainWindow_;
-	DialogPresenter * dialogPresenter_;
-	static log4cxx::LoggerPtr cdtor;
-	static log4cxx::LoggerPtr logger;
+    backend::ConfigModel * model_;
+    MainWindow * mainWindow_;
+    DialogPresenter * dialogPresenter_;
+    static log4cxx::LoggerPtr cdtor;
+    static log4cxx::LoggerPtr logger;
 };
 
 }

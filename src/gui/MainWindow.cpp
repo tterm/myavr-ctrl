@@ -124,6 +124,8 @@ void MainWindow::on_push_button_clicked(void) {
 		presenter_->onPush();
 	} catch (backend::DeviceNotFoundException & ex) {
 		QMessageBox::critical(this, tr("Device not found"), QString::fromUtf8(ex.what()));
+	} catch (backend::SerialPortCommunicationError & ex) {
+	    QMessageBox::critical(this, tr("Communication Error"), QString::fromUtf8(ex.what()));
 	}
 }
 

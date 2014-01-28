@@ -9,22 +9,22 @@
 #define COMMAND_H_
 
 #include "DeviceNotFoundException.h"
+#include "SerialPortCommunicationError.h"
 #include "PortConfig.h"
 #include <log4cxx/logger.h>
 #include <boost/asio.hpp>
-
 
 namespace backend {
 
 class Command {
 public:
-	Command();
-	~Command();
-	//void readHandler(const boost::system::error_code& error, std::size_t bytes_transferred)
-	void execute(const PortConfig & config) throw(DeviceNotFoundException);
+    Command();
+    ~Command();
+    void execute(const PortConfig & config) throw (DeviceNotFoundException,
+            SerialPortCommunicationError);
 private:
-	static log4cxx::LoggerPtr cdtor;
-	static log4cxx::LoggerPtr logger;
+    static log4cxx::LoggerPtr cdtor;
+    static log4cxx::LoggerPtr logger;
 };
 
 }
