@@ -1,5 +1,5 @@
 AC_PREREQ([2.67])
-AC_INIT([myavr-ctrl C++], [0.5], [tterm@strace.org],
+AC_INIT([myavr-ctrl C++], [0.1], [tterm@strace.org],
              [myavr_cc], [https://github.com/tterm/myavr-ctrl])
 AC_CONFIG_SRCDIR([src/gui/MainWindow.cpp])
 AM_INIT_AUTOMAKE([foreign -Wall -Wno-portability tar-pax])
